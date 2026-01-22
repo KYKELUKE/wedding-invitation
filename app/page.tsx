@@ -1,46 +1,46 @@
-'use client'
+"use client";
 
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function WeddingInvitation() {
-  const router = useRouter()
-  const [isVisible, setIsVisible] = useState(false)
+  const router = useRouter();
+  const [isVisible, setIsVisible] = useState(false);
   const [decorations, setDecorations] = useState<
     Array<{ id: number; left: number; delay: number; emoji: string }>
-  >([])
+  >([]);
   const [animatedCharacters, setAnimatedCharacters] = useState<
     Array<{ id: number; type: string; left: number; delay: number }>
-  >([])
-  const [isLoading, setIsLoading] = useState(true)
+  >([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [backgroundParticles, setBackgroundParticles] = useState<
     Array<{ id: number; left: number; delay: number }>
-  >([])
-  const [currentSlide, setCurrentSlide] = useState(0)
+  >([]);
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   const sliderImages = [
-    'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Slider%20BODA-cVRnWRJUtvZyOB775ipDSfNsz9NCEi.jpeg',
-    'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/SLIDER%20BODA%202-BdZzqIysZWfGomQxogfXYFE3gnEapO.jpeg',
-    'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Slider%20BODA%201%20-iAtMjQCU5g8U8I5xbWRivOajqWRSmT.jpeg',
-  ]
+    "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Slider%20BODA-cVRnWRJUtvZyOB775ipDSfNsz9NCEi.jpeg",
+    "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/SLIDER%20BODA%202-BdZzqIysZWfGomQxogfXYFE3gnEapO.jpeg",
+    "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Slider%20BODA%201%20-iAtMjQCU5g8U8I5xbWRivOajqWRSmT.jpeg",
+  ];
 
   useEffect(() => {
-    const emojis = ['🌸', '🌹', '💐', '🦋', '✨', '🌿', '💕', '🌺']
+    const emojis = ["🌸", "🌹", "💐", "🦋", "✨", "🌿", "💕", "🌺"];
     setDecorations(
       Array.from({ length: 20 }, (_, i) => ({
         id: i,
         left: Math.random() * 100,
         delay: Math.random() * 3,
         emoji: emojis[Math.floor(Math.random() * emojis.length)],
-      }))
-    )
+      })),
+    );
 
     const characters = [
-      { type: 'bride', emoji: '👰' },
-      { type: 'groom', emoji: '🤵' },
-      { type: 'cupid', emoji: '💘' },
-      { type: 'doves', emoji: '🕊️' },
-    ]
+      { type: "bride", emoji: "👰" },
+      { type: "groom", emoji: "🤵" },
+      { type: "cupid", emoji: "💘" },
+      { type: "doves", emoji: "🕊️" },
+    ];
 
     setAnimatedCharacters(
       Array.from({ length: 8 }, (_, i) => ({
@@ -48,36 +48,36 @@ export default function WeddingInvitation() {
         type: characters[i % characters.length].type,
         left: Math.random() * 100,
         delay: Math.random() * 2,
-      }))
-    )
+      })),
+    );
 
     setBackgroundParticles(
       Array.from({ length: 30 }, (_, i) => ({
         id: i,
         left: Math.random() * 100,
         delay: Math.random() * 5,
-      }))
-    )
-    
-    const loadingTimer = setTimeout(() => {
-      setIsLoading(false)
-      setIsVisible(true)
-    }, 3000)
+      })),
+    );
 
-    return () => clearTimeout(loadingTimer)
-  }, [])
+    const loadingTimer = setTimeout(() => {
+      setIsLoading(false);
+      setIsVisible(true);
+    }, 3000);
+
+    return () => clearTimeout(loadingTimer);
+  }, []);
 
   useEffect(() => {
     const sliderInterval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % sliderImages.length)
-    }, 5000)
+      setCurrentSlide((prev) => (prev + 1) % sliderImages.length);
+    }, 5000);
 
-    return () => clearInterval(sliderInterval)
-  }, [])
+    return () => clearInterval(sliderInterval);
+  }, []);
 
   const handleConfirm = () => {
-    router.push('/confirmed')
-  }
+    router.push("/confirmed");
+  };
 
   return (
     <>
@@ -89,16 +89,18 @@ export default function WeddingInvitation() {
               className="absolute pointer-events-none"
               style={{
                 left: `${decoration.left}%`,
-                top: '-20px',
-                animation: index % 3 === 0 
-                  ? `float-straight 8s infinite linear` 
-                  : index % 3 === 1
-                  ? `float-wave 7s infinite ease-in-out`
-                  : `float-spiral 9s infinite ease-in-out`,
+                top: "-20px",
+                animation:
+                  index % 3 === 0
+                    ? `float-straight 8s infinite linear`
+                    : index % 3 === 1
+                      ? `float-wave 7s infinite ease-in-out`
+                      : `float-spiral 9s infinite ease-in-out`,
                 animationDelay: `${decoration.delay}s`,
-              }}
-            >
-              <div className="text-4xl opacity-70 drop-shadow-lg">{decoration.emoji}</div>
+              }}>
+              <div className="text-4xl opacity-70 drop-shadow-lg">
+                {decoration.emoji}
+              </div>
             </div>
           ))}
 
@@ -125,7 +127,8 @@ export default function WeddingInvitation() {
         </div>
       )}
 
-      <div className={`transition-opacity duration-1000 ${isLoading ? 'opacity-0' : 'opacity-100'}`}>
+      <div
+        className={`transition-opacity duration-1000 ${isLoading ? "opacity-0" : "opacity-100"}`}>
         <div className="relative min-h-screen overflow-hidden bg-white">
           <div className="absolute inset-0">
             {sliderImages.map((image, index) => (
@@ -135,8 +138,8 @@ export default function WeddingInvitation() {
                 style={{
                   opacity: currentSlide === index ? 1 : 0,
                   backgroundImage: `url('${image}')`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
                 }}
               />
             ))}
@@ -150,40 +153,38 @@ export default function WeddingInvitation() {
                 className="absolute pointer-events-none"
                 style={{
                   left: `${particle.left}%`,
-                  top: '-50px',
+                  top: "-50px",
                   animation: `float-background 20s infinite linear`,
                   animationDelay: `${particle.delay}s`,
-                }}
-              >
-                <div className="text-6xl opacity-5">✨</div>
+                }}>
+                <div className="text-4xl sm:text-6xl opacity-5">✨</div>
               </div>
             ))}
           </div>
 
           {animatedCharacters.map((char) => {
             const emojis: Record<string, string> = {
-              bride: '👰',
-              groom: '🤵',
-              cupid: '💘',
-              doves: '🕊️',
-            }
-            
+              bride: "👰",
+              groom: "🤵",
+              cupid: "💘",
+              doves: "🕊️",
+            };
+
             return (
               <div
                 key={char.id}
                 className="absolute pointer-events-none"
                 style={{
                   left: `${char.left}%`,
-                  top: '-40px',
+                  top: "-40px",
                   animation: `wedding-characters-fall 8s infinite ease-in`,
                   animationDelay: `${char.delay}s`,
-                }}
-              >
-                <div className="text-5xl drop-shadow-lg animate-pulse-gentle">
-                  {emojis[char.type] || '🎉'}
+                }}>
+                <div className="text-3xl sm:text-5xl drop-shadow-lg animate-pulse-gentle">
+                  {emojis[char.type] || "🎉"}
                 </div>
               </div>
-            )
+            );
           })}
 
           {decorations.map((decoration, index) => (
@@ -192,111 +193,117 @@ export default function WeddingInvitation() {
               className="absolute pointer-events-none"
               style={{
                 left: `${decoration.left}%`,
-                top: '-20px',
-                animation: index % 3 === 0 
-                  ? `float-straight 8s infinite linear` 
-                  : index % 3 === 1
-                  ? `float-wave 7s infinite ease-in-out`
-                  : `float-spiral 9s infinite ease-in-out`,
+                top: "-20px",
+                animation:
+                  index % 3 === 0
+                    ? `float-straight 8s infinite linear`
+                    : index % 3 === 1
+                      ? `float-wave 7s infinite ease-in-out`
+                      : `float-spiral 9s infinite ease-in-out`,
                 animationDelay: `${decoration.delay}s`,
-              }}
-            >
-              <div className="text-4xl opacity-70 drop-shadow-lg">{decoration.emoji}</div>
+              }}>
+              <div className="text-2xl sm:text-3xl opacity-70 drop-shadow-lg">
+                {decoration.emoji}
+              </div>
             </div>
           ))}
 
           <div className="relative z-10 flex min-h-screen items-center justify-center px-4">
             <div
               className={`w-full max-w-2xl transform transition-all duration-1000 ${
-                isVisible ? 'scale-100 opacity-100' : 'scale-95 opacity-0'
-              }`}
-            >
+                isVisible ? "scale-100 opacity-100" : "scale-95 opacity-0"
+              }`}>
               <div className="rounded-3xl bg-white shadow-2xl overflow-hidden">
-                <div className="relative h-32 bg-gradient-to-r from-primary via-accent to-primary overflow-hidden">
+                <div className="relative h-24 sm:h-32 bg-gradient-to-r from-primary via-accent to-primary overflow-hidden">
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="absolute w-24 h-24 bg-white rounded-full opacity-10 animate-pulse" />
-                    <div className="absolute w-16 h-16 bg-white rounded-full opacity-20 animate-pulse" style={{ animationDelay: '0.5s' }} />
-                    <div className="relative z-10 text-5xl">💍</div>
+                    <div className="absolute w-16 h-16 sm:w-24 sm:h-24 bg-white rounded-full opacity-10 animate-pulse" />
+                    <div
+                      className="absolute w-12 h-12 sm:w-16 sm:h-16 bg-white rounded-full opacity-20 animate-pulse"
+                      style={{ animationDelay: "0.5s" }}
+                    />
+                    <div className="relative z-10 text-3xl sm:text-5xl">💍</div>
                   </div>
                 </div>
 
-                <div className="px-8 py-12 text-center space-y-8">
+                <div className="px-4 sm:px-8 py-6 sm:py-12 text-center space-y-4 sm:space-y-8">
                   <div
-                    className="animate-fade-in space-y-4"
-                    style={{ animationDelay: '0.3s' }}
-                  >
-                    <p className="text-3xl text-primary font-light tracking-widest uppercase">
+                    className="animate-fade-in space-y-2 sm:space-y-4"
+                    style={{ animationDelay: "0.3s" }}>
+                    <p className="text-lg sm:text-3xl text-primary font-light tracking-widest uppercase">
                       Nos alegra invitarte a celebrar
                     </p>
-                    <h1 className="text-primary font-bold leading-7 font-serif text-5xl">
+                    <h1 className="text-primary font-bold leading-7 font-serif text-4xl sm:text-5xl">
                       Nuestro Matrimonio
                     </h1>
                   </div>
 
                   <div
-                    className="py-8 animate-fade-in font-normal space-y-2"
-                    style={{ animationDelay: '0.6s' }}
-                  >
-                    <div className="flex items-center justify-center gap-4">
-                      <div className="h-px bg-gradient-to-r from-transparent to-primary w-12" />
-                      <p className="font-serif font-bold text-primary text-5xl">
+                    className="py-4 sm:py-8 animate-fade-in font-normal space-y-1 sm:space-y-2"
+                    style={{ animationDelay: "0.6s" }}>
+                    <div className="flex items-center justify-center gap-2 sm:gap-4">
+                      <div className="h-px bg-gradient-to-r from-transparent to-primary w-6 sm:w-12" />
+                      <p className="font-serif font-bold text-primary text-2xl sm:text-5xl">
                         Pascual Luque
                       </p>
-                      <div className="h-px bg-gradient-to-l from-transparent to-primary w-12" />
+                      <div className="h-px bg-gradient-to-l from-transparent to-primary w-6 sm:w-12" />
                     </div>
-                    <div className="text-center text-foreground text-3xl">y</div>
-                    <div className="flex items-center justify-center gap-4">
-                      <div className="h-px bg-gradient-to-r from-transparent to-primary w-12" />
-                      <p className="font-serif font-bold text-primary text-5xl">
+                    <div className="text-center text-foreground text-xl sm:text-3xl">
+                      y
+                    </div>
+                    <div className="flex items-center justify-center gap-2 sm:gap-4">
+                      <div className="h-px bg-gradient-to-r from-transparent to-primary w-6 sm:w-12" />
+                      <p className="font-serif font-bold text-primary text-2xl sm:text-5xl">
                         Yolanda Pari
                       </p>
-                      <div className="h-px bg-gradient-to-l from-transparent to-primary w-12" />
+                      <div className="h-px bg-gradient-to-l from-transparent to-primary w-6 sm:w-12" />
                     </div>
                   </div>
 
                   <div
-                    className="space-y-4 py-8 bg-gradient-to-r from-primary/5 to-accent/5 rounded-2xl px-6 animate-fade-in"
-                    style={{ animationDelay: '0.75s' }}
-                  >
-                    <p className="text-2xl font-serif text-primary/90 leading-relaxed">
+                    className="space-y-3 sm:space-y-4 py-4 sm:py-8 bg-gradient-to-r from-primary/5 to-accent/5 rounded-xl sm:rounded-2xl px-4 sm:px-6 animate-fade-in"
+                    style={{ animationDelay: "0.75s" }}>
+                    <p className="text-lg sm:text-2xl font-serif text-primary/90 leading-relaxed">
                       "{`Dos almas, un corazón, una promesa eterna.`}"
                     </p>
-                    <p className="text-lg text-foreground/80 leading-relaxed">
-                      Con inmensa alegría y gratitud, les pedimos sean parte de este momento tan especial, en el que sellaremos nuestro compromiso de amor y fe en un futuro lleno de bendiciones compartidas.
+                    <p className="text-sm sm:text-lg text-foreground/80 leading-relaxed">
+                      Con inmensa alegría y gratitud, les pedimos sean parte de
+                      este momento tan especial, en el que sellaremos nuestro
+                      compromiso de amor y fe en un futuro lleno de bendiciones
+                      compartidas.
                     </p>
                   </div>
 
-                  <div className="space-y-3">
+                  <div className="space-y-2 sm:space-y-3">
                     <div className="flex items-center justify-center gap-2 text-foreground">
-                      <span className="text-3xl">📅</span>
-                      <span className="text-2xl">Sábado, 22 de Enero del 2026</span>
+                      <span className="text-xl sm:text-3xl">📅</span>
+                      <span className="text-sm sm:text-2xl">
+                        Sábado, 22 de Enero del 2026
+                      </span>
                     </div>
                     <div className="flex items-center justify-center gap-2 text-foreground">
-                      <span className="text-3xl">🕖</span>
-                      <span className="text-2xl">19:00 horas</span>
+                      <span className="text-xl sm:text-3xl">🕖</span>
+                      <span className="text-sm sm:text-2xl">19:00 horas</span>
                     </div>
                   </div>
 
-                  <p className="text-foreground/70 text-lg font-light italic pt-4">
+                  <p className="text-foreground/70 text-xs sm:text-lg font-light italic pt-2 sm:pt-4">
                     La presencia de ustedes será el mayor regalo para nosotros
                   </p>
 
                   <div
-                    className="pt-6 animate-fade-in"
-                    style={{ animationDelay: '1.2s' }}
-                  >
+                    className="pt-4 sm:pt-6 animate-fade-in"
+                    style={{ animationDelay: "1.2s" }}>
                     <button
                       onClick={handleConfirm}
-                      className="px-10 py-4 bg-gradient-to-r from-primary to-accent text-white font-semibold text-xl rounded-full hover:shadow-xl transition-all duration-300 transform hover:scale-105 active:scale-95"
-                    >
+                      className="px-6 sm:px-10 py-3 sm:py-4 bg-gradient-to-r from-primary to-accent text-white font-semibold text-base sm:text-xl rounded-full hover:shadow-xl transition-all duration-300 transform hover:scale-105 active:scale-95">
                       Confirmar Asistencia
                     </button>
                   </div>
                 </div>
 
-                <div className="px-8 py-6 bg-secondary/20 text-center text-lg text-foreground/60">
+                <div className="px-4 sm:px-8 py-4 sm:py-6 bg-secondary/20 text-center text-sm sm:text-lg text-foreground/60">
                   <p>Con amor y alegría,</p>
-                  <p className="font-serif text-primary font-semibold mt-2 text-xl">
+                  <p className="font-serif text-primary font-semibold mt-2 text-base sm:text-xl">
                     Pascual &amp; Yolanda
                   </p>
                 </div>
@@ -385,7 +392,8 @@ export default function WeddingInvitation() {
         }
 
         @keyframes pulse {
-          0%, 100% {
+          0%,
+          100% {
             opacity: 1;
           }
           50% {
@@ -422,7 +430,8 @@ export default function WeddingInvitation() {
             opacity: 1;
           }
           50% {
-            transform: translateY(50vh) translateX(80px) rotate(10deg) scale(1.1);
+            transform: translateY(50vh) translateX(80px) rotate(10deg)
+              scale(1.1);
           }
           90% {
             opacity: 1;
@@ -434,7 +443,8 @@ export default function WeddingInvitation() {
         }
 
         @keyframes pulse-gentle {
-          0%, 100% {
+          0%,
+          100% {
             opacity: 1;
             transform: scale(1);
           }
@@ -464,5 +474,5 @@ export default function WeddingInvitation() {
         }
       `}</style>
     </>
-  )
+  );
 }
